@@ -1,0 +1,16 @@
+{
+    "manifest_version": 3,
+    "name": "PosiTube",
+    "version": "1.0.0",
+    "description": "Tired of your feed? PosiTube is here to filter out unecessarily negative content on YouTube and refresh your page! ",
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["Content.js"]
+        }
+    ],
+    "action": {
+        "default_popup": "index.html",
+        "default_icon": "hello_extensions.png"
+      }
+}
