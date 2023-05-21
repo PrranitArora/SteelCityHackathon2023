@@ -5,12 +5,19 @@
     "description": "Tired of your feed? PosiTube is here to filter out unecessarily negative content on YouTube and refresh your page! ",
     "content_scripts": [
         {
-            "matches": ["<all_urls>"],
+            "matches": ["*://*.youtube.com/shorts*"],
             "js": ["Content.js"]
         }
     ],
+    "background": {
+        "service_worker": "background.js"
+      },
     "action": {
         "default_popup": "index.html",
         "default_icon": "hello_extensions.png"
-      }
+      },
+      "permissions": ["activeTab"] ,
+      "host_permissions": [
+        "https://www.youtube.com/shorts/*"
+      ]
 }
