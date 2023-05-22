@@ -12,9 +12,9 @@
     transform: translate(-50%, -50%);
     text-align: left;
     padding: 20px;
-    visibility: hidden;
+    visibility: visible;
 }
 
-.open-pop-up {
-    visibility: visible;
+.close-pop-up {
+    visibility: hidden;
 }

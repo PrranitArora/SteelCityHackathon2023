@@ -13,11 +13,11 @@
         "service_worker": "background.js"
       },
     "action": {
-        "default_popup": "index.html",
-        "default_icon": "hello_extensions.png"
-      },
-      "permissions": ["activeTab"] ,
-      "host_permissions": [
-        "https://www.youtube.com/shorts/*"
-      ]
+      "default_popup": "index.html",
+      "default_icon": "hello_extensions.png"
+    },
+    "permissions": ["activeTab", "scripting", "tabs"],
+    "host_permissions": [
+      "https://www.youtube.com/shorts/*"
+    ]
 }
