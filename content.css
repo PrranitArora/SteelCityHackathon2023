@@ -1,8 +1,4 @@
-*{
-
-}
-
-.pop-up {
+.acho-notification {
     width: 400px;
     background-color: white;
     border-radius: 6px;
@@ -13,8 +9,9 @@
     text-align: left;
     padding: 20px;
     visibility: visible;
+    z-index: 100;
 }
 
-.close-pop-up {
-    visibility: hidden;
+.acho-notification > img {
+    margin-right: 12px;
 }
