@@ -5,10 +5,14 @@ alert("active2");
 //     console.log("trying to pause");
     
 // `});
-setTimeout(() => {
-        var player = document.querySelectorAll('video')[0];
-        player.pause()
-    }, 800); // Pause the video if it's playing
+// setTimeout(() => {
+//         var player = document.querySelectorAll('video')[0];
+//         player.pause();
+//     }, 2000); // time out is a temporary solution since the time it takes for yt to load differs
+// URL event listner
+navigation.addEventListener("navigate", e => {
+    console.log(navigate => e.destination.url)
+  });
 
 // Notification body
 const notification = document.createElement("div");
