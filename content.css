@@ -1,0 +1,17 @@
+.acho-notification {
+    width: 400px;
+    background-color: white;
+    border-radius: 6px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: left;
+    padding: 20px;
+    visibility: visible;
+    z-index: 100;
+}
+
+.acho-notification > img {
+    margin-right: 12px;
+}
