@@ -34,15 +34,17 @@ async function getCaptions(document) {
 
 function initExtension() {
     var extension = document.querySelector(".acho-notification");
+
     if (extension == null) {
         // Notification body
         const notification = document.createElement("div");
-        notification.className = 'acho-notification';
-        notification.innerHTML = 
-            `<h1>Warning</h1>
+        notification.className = "acho-notification";
+        notification.innerHTML = `
+            <h1>Warning</h1>
             <p>Sensitive content detected. Skip?</p>
             <button type="button" id="ignore">Ignore</button>
-            <button type="button" id="big-brother-john">Skip</button>`;
+            <button type="button" id="big-brother-john">Skip</button>
+        `;
 
         // Add to current page
         document.body.appendChild(notification);
@@ -94,6 +96,8 @@ async function queryApi() {
 
     if (res.ok) {
         let intRes = await res.text();
+
+        // Add code to deal with result
         console.log(intRes);
     } else {
         console.error("Score Api Returned Error Code " + res.error);
