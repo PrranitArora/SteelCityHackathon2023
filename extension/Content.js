@@ -1,3 +1,5 @@
+import { getSubtitles } from 'youtube-captions-scraper'; 
+
 let prevPageWasShorts = false;
 
 async function getCaptions(document) {
@@ -30,20 +32,9 @@ async function getCaptions(document) {
     return retStr;
 }
 
-// // Pause video
-// chrome.tabs.executeScript(tabs[0].id, { code: `
-//     console.log("trying to pause");
-    
-// `});
-// setTimeout(() => {
-//         var player = document.querySelectorAll('video')[0];
-//         player.pause();
-//     }, 2000); // time out is a temporary solution since the time it takes for yt to load differs
-// URL event listner
-
 function initExtension() {
-    var extension = document.querySelectorAll(".acho-notification");
-    if (extension.length == 0) {
+    var extension = document.querySelector(".acho-notification");
+    if (extension == null) {
         // Notification body
         const notification = document.createElement("div");
         notification.className = 'acho-notification';
@@ -62,7 +53,6 @@ function initExtension() {
         })
 
         document.getElementById("big-brother-john").addEventListener("click", () => {
-            console.log("HELLO");
             let buttons = document.querySelectorAll('.yt-spec-button-shape-next--mono.yt-spec-button-shape-next--text');
 
             var nextButton; 
@@ -71,28 +61,28 @@ function initExtension() {
             } else {
                 nextButton = buttons[4];
             }
+
             nextButton.click();
         })
     } else {
-        for (let i of extension) {
-            i.style.display = "";
-        } 
+        extension.style.display = "";
     }
 }
 
-if (window.location.href.includes("www.youtube.com/shorts")) {
-    initExtension();
-}
-
 function closeExtension() {
-    var extension = document.querySelectorAll(".acho-notification");
+    var extension = document.querySelector(".acho-notification");
 
-    for (let i of extension) {
-        i.style.display = "none";
-     }
+    if (extension !== null) {
+        extension.style.display = "none";
+    }
 }
 
 async function queryApi() {
+    // let captions = await getSubtitles({
+    //     videoID: 'XXXXX', // youtube video id
+    //     lang: 'fr' // default: `en`
+    // });
+
     let res = await fetch("localhost:5000/score", {
         method: 'POST',
         headers: {
@@ -105,11 +95,12 @@ async function queryApi() {
     if (res.ok) {
         let intRes = await res.text();
         console.log(intRes);
+    } else {
+        console.error("Score Api Returned Error Code " + res.error);
     }
 }
 
-navigation.addEventListener("navigate", (e) => {
-    console.log("HELLO");
+navigation.addEventListener("navigate", e => {
     if (e.destination.url.includes("www.youtube.com/shorts")) {
         if (!prevPageWasShorts) {
             initExtension();
