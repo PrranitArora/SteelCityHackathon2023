@@ -28,8 +28,6 @@ async function getCaptions(document) {
     return retStr;
 }
 
-alert("active2");
-
 // // Pause video
 // chrome.tabs.executeScript(tabs[0].id, { code: `
 //     console.log("trying to pause");
@@ -44,14 +42,41 @@ navigation.addEventListener("navigate", e => {
     console.log(navigate => e.destination.url)
   });
 
+// Import font
+// const font = document.createElement("link");
+// font.href = "https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap";
+// font.rel = "stylesheet";
+// document.head.appendChild(font);
+
+// const googleFont = document.createElement("link");
+// font.href = "https://fonts.googleapis.com";
+// font.rel = "preconnect";
+// document.head.appendChild(googleFont);
+
+// const googleFont2 = document.createElement("link");
+// font.href = "https://fonts.gstatic.com";
+// font.rel = "preconnect";
+// font.crossOrigin = "anonymous";
+// document.head.appendChild(googleFont2);
+
+const font = document.createElement("style");
+font.innerHTML =
+    `@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');`;
+document.head.appendChild(font);
+
+
 // Notification body
 const notification = document.createElement("div");
-notification.className = 'acho-notification';
-notification.innerHTML = 
-    `<h1>Warning</h1>
-    <p>Sensitive content detected. Skip?</p>
-    <button type="button" id="ignore">Ignore</button>
-    <button type="button" id="big-brother-john">Skip</button>`;
+notification.className = 'popup';
+notification.innerHTML =
+    `<h1>OOPS</h1>
+    <p>Posi Found Something Sus!</p>
+    <div class="buttons">
+        <button type="button" id="ignore" class="ignore">Ignore</button>
+        <button type="button" id="big-brother-john" class="big-brother-john">Skip</button>
+    </div>`;
+var imgURL = chrome.runtime.getURL("popup-background.png");
+notification.style.backgroundImage = "url('" + imgURL + "')",
 
 // Add to current page
 document.body.appendChild(notification);
