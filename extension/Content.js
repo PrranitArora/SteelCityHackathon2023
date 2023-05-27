@@ -1,6 +1,5 @@
-import { getSubtitles } from 'youtube-captions-scraper'; 
-
 let prevPageWasShorts = false;
+let prevPageShortId = "";
 
 async function getCaptions(document) {
     console.log(document.body.innerHTML);
@@ -79,19 +78,14 @@ function closeExtension() {
     }
 }
 
-async function queryApi() {
-    // let captions = await getSubtitles({
-    //     videoID: 'XXXXX', // youtube video id
-    //     lang: 'fr' // default: `en`
-    // });
-
-    let res = await fetch("localhost:5000/score", {
+async function queryApi(vidId) {
+    let res = await fetch("http://localhost:8000/score", {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ "caption": "INSERT CAPTION" })
+        body: JSON.stringify({ "id": vidId })
     });
 
     if (res.ok) {
@@ -104,15 +98,28 @@ async function queryApi() {
     }
 }
 
+function queryApiWithVidId(vidId) {
+    if (!(prevPageWasShorts && prevPageShortId == vidId)) {
+        console.log("Quering API with vid id " + vidId);
+        queryApi(vidId);
+    }
+    prevPageWasShorts = true;
+    prevPageShortId = vidId;
+}
+
 navigation.addEventListener("navigate", e => {
     if (e.destination.url.includes("www.youtube.com/shorts")) {
         if (!prevPageWasShorts) {
             initExtension();
         }
-        prevPageWasShorts = true;
-        queryApi();
+        queryApiWithVidId(e.destination.url.split("www.youtube.com/shorts/")[1]);
     } else {
         closeExtension();
         prevPageWasShorts = false;
     }
 });
+
+if (window.location.href.includes("www.youtube.com/shorts")) {
+    initExtension();
+    queryApiWithVidId(window.location.href.split("www.youtube.com/shorts/")[1]);
+}
