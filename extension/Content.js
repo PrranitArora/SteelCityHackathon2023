@@ -2,10 +2,9 @@ let prevPageWasShorts = false;
 let prevPageShortId = "";
 
 function initExtension() {
-    var extension = document.querySelector(".acho-notification");
+    var extension = document.querySelector(".popup");
 
     if (extension == null) {
-      
       const font = document.createElement("style");
       font.innerHTML =
           `@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');`;
@@ -30,21 +29,23 @@ function initExtension() {
 
       // Button configuration
       document.getElementById("ignore").addEventListener("click", () => {
-          notification.style.display = "none";
+        closeExtension();
       })
 
       document.getElementById("big-brother-john").addEventListener("click", () => {
           let buttons = document.querySelectorAll('.yt-spec-button-shape-next--mono.yt-spec-button-shape-next--text');
           var nextButton = buttons[buttons.length - 1];
           nextButton.click();
+          initExtension(); // Clears error text
       })
     } else {
         extension.style.display = "";
+        extension.children[1].innerHTML = "Posi Found Something Sus!"; // Clears error text
     }
 }
 
 function closeExtension() {
-    var extension = document.querySelector(".acho-notification");
+    var extension = document.querySelector(".popup");
 
     if (extension !== null) {
         extension.style.display = "none";
@@ -62,16 +63,30 @@ async function queryApi(vidId) {
     });
 
     if (res.ok) {
-        let intRes = await res.text();
+        let intRes = parseInt(await res.text());
 
-        // Add code to deal with result
-        console.log(intRes);
+        if (intRes == 1) {
+            initExtension();
+            for (i of document.querySelectorAll("video")) {
+                i.play();
+            }
+        } else {
+            for (i of document.querySelectorAll("video")) {
+                i.play();
+            }
+        }
     } else {
         console.error("Score Api Returned Error Code " + res.error);
+        initExtension();
+        document.querySelector(".popup").children[1].innerHTML = "Error Cant Find Captions";
     }
 }
 
 function queryApiWithVidId(vidId) {
+    for (i of document.querySelectorAll("video")) {
+        i.pause();
+    }
+
     if (!(prevPageWasShorts && prevPageShortId == vidId)) {
         console.log("Quering API with vid id " + vidId);
         queryApi(vidId);
@@ -82,9 +97,6 @@ function queryApiWithVidId(vidId) {
 
 navigation.addEventListener("navigate", e => {
     if (e.destination.url.includes("www.youtube.com/shorts")) {
-        if (!prevPageWasShorts) {
-            initExtension();
-        }
         queryApiWithVidId(e.destination.url.split("www.youtube.com/shorts/")[1]);
     } else {
         closeExtension();
@@ -93,6 +105,5 @@ navigation.addEventListener("navigate", e => {
 });
 
 if (window.location.href.includes("www.youtube.com/shorts")) {
-    initExtension();
     queryApiWithVidId(window.location.href.split("www.youtube.com/shorts/")[1]);
 }

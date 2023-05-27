@@ -22,7 +22,7 @@ def create_app(test_config=None):
                     captionStr += i["text"] + " ";
                     
                 print(captionStr);
-                response = make_response();
+                response = make_response("1", 200);
                 response.headers.add("Access-Control-Allow-Origin", "*");
                 return response;
             except:
