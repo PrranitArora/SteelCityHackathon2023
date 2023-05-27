@@ -1,17 +1,66 @@
-.acho-notification {
-    width: 400px;
-    background-color: white;
-    border-radius: 6px;
+.popup {
     position: absolute;
+    width: 400px;
+    height: fit-content;
+    background: #FFFFFF;
+    border-radius: 30px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    text-align: left;
-    padding: 20px;
+    text-align: right;
+    padding: 25px;
     visibility: visible;
     z-index: 100;
 }
 
-.acho-notification > img {
-    margin-right: 12px;
+.popup h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 60px;
+    line-height: 60px;
+    color: #000000;
+}
+
+.popup p {
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.buttons {
+    padding-top: 20px;
+    padding-bottom: 0px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.ignore {
+    background: #1E1E1E;
+    border-radius: 29px;
+    width: 100px;
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 22px;
+    padding: 10px;
+    color: #FFFFFF;
+    border-color: transparent;
+}
+
+.big-brother-john {
+    background: #FFD439;
+    width: 100px;
+    border-radius: 29px;
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 22px;
+    padding: 10px;
+    color: #1E1E1E;
+    border-color: transparent;
 }
