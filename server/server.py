@@ -22,7 +22,9 @@ def create_app(test_config=None):
                     captionStr += i["text"] + " ";
                     
                 print(captionStr);
-                response = make_response("1", 200);
+                sentiment = analyzer.sentiment(captionStr)
+                print(sentiment)
+                response = make_response(sentiment, 200);
                 response.headers.add("Access-Control-Allow-Origin", "*");
                 return response;
             except:

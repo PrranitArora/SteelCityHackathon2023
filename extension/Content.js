@@ -36,7 +36,7 @@ function initExtension() {
           let buttons = document.querySelectorAll('.yt-spec-button-shape-next--mono.yt-spec-button-shape-next--text');
           var nextButton = buttons[buttons.length - 1];
           nextButton.click();
-          initExtension(); // Clears error text
+          closeExtension(); // Clears error text
       })
     } else {
         extension.style.display = "";
@@ -63,13 +63,12 @@ async function queryApi(vidId) {
     });
 
     if (res.ok) {
-        let intRes = parseInt(await res.text());
-
-        if (intRes == 1) {
+        console.log(res)
+        let intRes = parseFloat(await res.text());
+        console.log(intRes)
+        if (intRes > 0.4) {
             initExtension();
-            for (i of document.querySelectorAll("video")) {
-                i.play();
-            }
+            console.log(a)
         } else {
             for (i of document.querySelectorAll("video")) {
                 i.play();
@@ -78,7 +77,7 @@ async function queryApi(vidId) {
     } else {
         console.error("Score Api Returned Error Code " + res.error);
         initExtension();
-        document.querySelector(".popup").children[1].innerHTML = "Error Cant Find Captions";
+        document.querySelector(".popup").children[1].innerHTML = "The Short Doesn't Have Captions";
     }
 }
 
