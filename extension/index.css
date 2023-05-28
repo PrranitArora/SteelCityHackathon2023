@@ -15,20 +15,6 @@ h1 {
     margin-top: 15px;
 }
 
-section {
-    width: 215px;
-    height: 150px;
-
-    position: absolute;
-    top: 44px;
-    left: 0px;
-
-    border-color: #9747FF;
-    border-style: dashed;
-    border-width: 3px;
-    border-radius: 15px;
-}
-
 article {
     display: flex;
     justify-content: flex-start;
