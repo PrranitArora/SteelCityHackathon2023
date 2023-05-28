@@ -5,15 +5,18 @@
     "description": "Tired of your feed? PosiTube is here to filter out unecessarily negative content on YouTube and refresh your page! ",
     "content_scripts": [
         {
-            "matches": ["<all_url>"],
+            "matches": ["<all_urls>"],
             "js": ["content.js"],
             "css": ["content.css"],
             "run_at": "document_end"
         }
     ],
+    "icons": {
+      "128": "posi.png"
+    },
     "action": {
       "default_popup": "index.html",
-      "default_icon": "hello_extensions.png"
+      "default_icon": "posi.png"
     },
     "permissions": ["activeTab", "scripting", "tabs"],
     "host_permissions": [
