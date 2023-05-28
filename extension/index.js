@@ -1,13 +1,14 @@
 window.addEventListener("load", () => {
-    const currSelection = localStorage.getItem("filterSelection");
+    chrome.storage.sync.get(['filterSelection']).then(function(currSelection) {
+        if (currSelection["filterSelection"] != null) {
+            document.querySelector("#" + currSelection["filterSelection"]).checked = true;
+        }
+    });
 
-    if (currSelection != null) {
-        document.querySelector("#" + currSelection).checked = true;
-    }
 
     for (let i of document.querySelectorAll("input")) {
         i.addEventListener("change", () => {
-            localStorage.setItem("filterSelection", i.value);
+            chrome.storage.sync.set({ 'filterSelection': i.value });
         })
     }
 });

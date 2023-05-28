@@ -65,10 +65,25 @@ async function queryApi(vidId) {
     if (res.ok) {
         console.log(res)
         let intRes = parseFloat(await res.text());
-        console.log(intRes)
-        if (intRes > 0.4) {
+        console.log(intRes);
+
+        let tolerance = 0.8;
+
+        const bob = await chrome.storage.sync.get(['filterSelection']);
+        const currSelection = bob["filterSelection"];
+        if (currSelection != null) {
+            if (currSelection === "high") {
+                tolerance = 0.9
+            } else if (currSelection === "low") {
+                tolerance = 0.4
+            } else {
+               tolerance = 0.7 
+            }
+        } 
+
+        if (intRes > tolerance) {
             initExtension();
-            console.log(a)
+            console.log(a);
         } else {
             for (i of document.querySelectorAll("video")) {
                 i.play();
