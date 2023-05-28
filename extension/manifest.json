@@ -23,7 +23,7 @@
       "https://www.youtube.com/shorts/*"
     ],
     "web_accessible_resources": [{
-      "resources": ["popup-background.png"],
+      "resources": ["popup-background.png, bg-img.png"],
       "matches": ["<all_urls>"]    
     }]
 }
